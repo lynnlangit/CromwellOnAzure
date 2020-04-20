@@ -70,7 +70,20 @@ To mitigate, please resize your VM in the resource group to a machine with at le
 
 ## Setup
 ### Setup Cromwell on Azure for multiple users in the same Azure subscription
+We have developed Cromwell on Azure to be flexible to single or multiple user scenarios. We have envisioned 4 overarching scenarios and demonstrated how the relate to your Azure account, Azure Batch service, Subscription ID, and Resource Groups, each depicted below.
+
 ![Multiple Users FAQ](/docs/screenshots/multiple-users-configs.png)
+
+1) **"The individual user"**: This is the current standard deployment configuration for Cromwell on Azure. No extra steps beyond the Quick Start guide are necessary.
+
+2) **The Lab**: This scenario is envisioned for small lab groups and teams sharing a common Azure resource (ie. a common bioinformatician(s) / data scientist(s) / compututational biologist(s) collaborating on projects from the same lab). Functionally, this setup does not differ from the "Individual User" configuration. We recommend a single "Cromwell Administrator" setup Cromwell on Azure for the group. (Be sure this user has the appropriate role(s) on the Subscription ID as outlined [here](INSERT LINK HERE). Once deployed, this "Cromwell Administrator" can grant access to the created Cromwell Storage Account via the [Azure Portal](INSERT LINK HERE). This would allow granted users the ability to submit analysis jobs and retrieve results. It would also allow them the ability to view *any analysis* that has been run by the lab. As Cromwell submits all jobs to Azure Batch as one user, the billing for Cromwell on Azure usage would be collective for the entire lab, not broken down by individual users who submitted the jobs. 
+
+3) **The Research Group**: This scenario is envisioned for larger research groups where a common Azure subscription is shared, but users want/require their own instance of Cromwell on Azure. The initial Cromwell on Azure deployment is done as described in the [Quick Start] (INSERT LINK HERE) guide. After the first deployment of Cromwell on Azure is done on the Subscription, subsequent users will need to specify a *separate Resource Group* **AND** *preexisting Azure Batch service name* that is currently being utilized by the pre-existing deployment(s) of Cromwell on Azure. See the invocation of the Linux deployment script for an example:
+
+(INSERT CODE LINE HERE)
+
+
+
 
 ### Debug my Cromwell on Azure installation that ran into an error
 When the Cromwell on Azure installer is run, if there are errors, the logs are printed in the terminal. Most errors are related to insufficient permissions to create resources in Azure on your behalf, or intermittent Azure failures. In case of an error, we terminate the installation process and begin deleting all the resources in the Resource Group if already created. <br/>
