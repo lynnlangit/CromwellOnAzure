@@ -70,7 +70,7 @@ To mitigate, please resize your VM in the resource group to a machine with at le
 
 ## Setup
 ### Setup Cromwell on Azure for multiple users in the same Azure subscription
-This section is COMING SOON.
+(/docs/screenshots/multiple-users-configs.png)
 
 ### Debug my Cromwell on Azure installation that ran into an error
 When the Cromwell on Azure installer is run, if there are errors, the logs are printed in the terminal. Most errors are related to insufficient permissions to create resources in Azure on your behalf, or intermittent Azure failures. In case of an error, we terminate the installation process and begin deleting all the resources in the Resource Group if already created. <br/>
