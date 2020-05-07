@@ -266,9 +266,9 @@ To ensure that no data is corrupted for MySQL backed storage for Cromwell, Cromw
 
 ### Running CWL Workflows on Cromwell on Azure
 Running workflows crafted in the Common Workflow Language(CWL) format is possible with a few modifications to your workflow submission. 
-1) **Ensure your dependencies are accessible by Cromwell** Any additional scripts or subworkflows must be accessible to TES. They can be provided in 3 ways:
-  * Via a ZIP file in a storage container accessible by Cromwell. **NOTE**- you will **also** have to specify this ZIP file in your [trigger](https://github.com/microsoft/CromwellOnAzure/blob/master/docs/managing-your-workflow.md/#configure-your-cromwell-on-azure-trigger-json-file) file. 
-  * Via public URLs
+1) **Ensure your dependencies are accessible by Cromwell** Any additional scripts or subworkflows must be accessible to TES. They can be provided in 3 ways:  
+  * Via a ZIP file in a storage container accessible by Cromwell. **NOTE**- you will **also** have to specify this ZIP file in your [trigger](https://github.com/microsoft/CromwellOnAzure/blob/master/docs/managing-your-workflow.md/#configure-your-cromwell-on-azure-trigger-json-file) file.  
+  * Via public URLs  
   * Via storage accounts accessbile to TES using either the /storageaccount/container/blob... notation OR the https://storageaccountname.blob.core.windows.net/container/blob format. 
 
 2) **Ensure your runtime resource requests are specified with the same names as WDL files** CWL files sometimes contain differing runtime parameter names than what's acceptable by TES. Please refer to our [guide](https://github.com/microsoft/CromwellOnAzure/blob/master/docs/managing-your-workflow.md/#how-to-prepare-a-workflow-description-language-wdl-file-that-runs-a-workflow-on-cromwell-on-azure) for proper guidance.
