@@ -31,6 +31,7 @@ This article answers FAQs, describes advanced features that allow customization 
 5. Miscellaneous
    * I cannot find my issue in this document and [want more information](#Get-container-logs-to-debug-issues) from Cromwell, MySQL, or TES Docker container logs.
    * I am running a large amount of workflows and [MySQL storage disk is full](#I-am-running-a-large-amount-of-workflows-and-MySQL-storage-disk-is-full)
+   * How can I run [CWL](#Running-CWL-Workflows-on-Cromwell-on-Azure) files on Cromwell on Azure?
 
 
 ## Known Issues And Mitigation
@@ -263,7 +264,17 @@ sudo docker logs 'containerName'
 ### I am running a large amount of workflows and MySQL storage disk is full
 To ensure that no data is corrupted for MySQL backed storage for Cromwell, Cromwell on Azure mounts MySQL files on to an Azure Managed Data Disk of size 32G. In case there is a need to increase the size of this data disk, follow instructions [here](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/expand-disks#expand-an-azure-managed-disk).
 
+### Running CWL Workflows on Cromwell on Azure
+Running workflows crafted in the Common Workflow Language(CWL) format is possible with a few modifications to your workflow submission. 
+1) **Ensure your dependencies are accessible by Cromwell** Any additional scripts or subworkflows must be accessible to TES. They can be provided in 3 ways:
+  * Via a ZIP file in a storage container accessible by Cromwell. **NOTE**- you will **also** have to specify this ZIP file in your [trigger](https://github.com/microsoft/CromwellOnAzure/blob/master/docs/managing-your-workflow.md/#configure-your-cromwell-on-azure-trigger-json-file) file. 
+  * Via public URLs
+  * Via storage accounts accessbile to TES using either the /storageaccount/container/blob... notation OR the https://storageaccountname.blob.core.windows.net/container/blob format. 
 
+2) **Ensure your runtime resource requests are specified with the same names as WDL files** CWL files sometimes contain differing runtime parameter names than what's acceptable by TES. Please refer to our [guide](https://github.com/microsoft/CromwellOnAzure/blob/master/docs/managing-your-workflow.md/#how-to-prepare-a-workflow-description-language-wdl-file-that-runs-a-workflow-on-cromwell-on-azure) for proper guidance.
+
+3) **Known issue for CWL files: Cannot request specific HDD size** Unfortunately, this is actually a bug in how Cromwell currently parses the CWL file- and thus must be addressed in the Cromwell source code directly. We have submitted an issue to the Broad to have this addressed.  
+The current workaround for this is to increase the number of vCPUs or Memory requested for a task, which will indirectly increase the amount of working disk space available. However, because this may cause inconsistent performance, we advise that if you are running a task that might consume a large amount of local scratch space, consider converting your workflow to the WDL format instead.
 
 
 
