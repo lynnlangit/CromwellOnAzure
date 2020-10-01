@@ -15,8 +15,6 @@
  * See our [Troubleshooting Guide](docs/troubleshooting-guide.md/#FAQs,-advanced-troubleshooting-and-known-issues-for-Cromwell-on-Azure) for more information.<br/>
  * Known issues and work-arounds are [documented here](docs/troubleshooting-guide.md/#Known-Issues-And-Mitigation)<br/>
 
-If you are running into an issue and cannot find any information in the troubleshooting guide, please open a GitHub issue!<br/>
-
 ![Logo](/docs/screenshots/logo.png)
 
 ## Cromwell on Azure 
